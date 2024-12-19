@@ -1,16 +1,38 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import p5 from 'p5';
 
-const PerlinSketch = () => {
+interface PerlinSketchProps {
+  onRegenerate?: () => void;
+}
+
+const PerlinSketch = ({ onRegenerate }: PerlinSketchProps) => {
   const sketchRef = useRef<HTMLDivElement>(null);
   const p5Instance = useRef<p5 | null>(null);
   const particles = useRef<any[]>([]);
+  const [canvasSize, setCanvasSize] = useState({ width: 800, height: 800 });
 
   const regenerateSketch = () => {
     if (p5Instance.current) {
       p5Instance.current.background(255);
       if (particles.current) {
         particles.current.forEach((particle: any) => particle.reset());
+      }
+    }
+    onRegenerate?.();
+  };
+
+  const updateCanvasSize = () => {
+    if (sketchRef.current && p5Instance.current) {
+      const container = sketchRef.current.parentElement;
+      if (container) {
+        const width = Math.min(container.clientWidth - 32, 800); // subtract padding
+        const height = width; // keep it square
+        setCanvasSize({ width, height });
+        p5Instance.current.resizeCanvas(width, height);
+        p5Instance.current.background(255);
+        if (particles.current) {
+          particles.current.forEach((particle: any) => particle.reset());
+        }
       }
     }
   };
@@ -68,7 +90,12 @@ const PerlinSketch = () => {
       }
 
       p.setup = () => {
-        const canvas = p.createCanvas(800, 800);
+        const container = sketchRef.current?.parentElement;
+        const width = container ? Math.min(container.clientWidth - 32, 800) : 800;
+        const height = width;
+        setCanvasSize({ width, height });
+        
+        const canvas = p.createCanvas(width, height);
         p.background(255);
         
         particles.current = Array.from({ length: numParticles }, () => new Particle());
@@ -89,7 +116,14 @@ const PerlinSketch = () => {
 
     p5Instance.current = new p5(sketch, sketchRef.current);
 
+    // Add resize listener
+    const handleResize = () => {
+      updateCanvasSize();
+    };
+    window.addEventListener('resize', handleResize);
+
     return () => {
+      window.removeEventListener('resize', handleResize);
       if (p5Instance.current) {
         p5Instance.current.remove();
       }
@@ -97,16 +131,8 @@ const PerlinSketch = () => {
   }, []);
 
   return (
-    <div>
-      <div ref={sketchRef}></div>
-      <div className="flex gap-4 mt-4 justify-center">
-        <button 
-          onClick={regenerateSketch}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
-        >
-          Generate New
-        </button>
-      </div>
+    <div className="w-full">
+      <div ref={sketchRef} className="flex justify-center"></div>
     </div>
   );
 };
