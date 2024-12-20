@@ -218,9 +218,9 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
     <div className="w-full">
       <div ref={sketchRef} className="flex justify-center w-full max-w-full overflow-hidden"></div>
       <div className="mt-4 md:mt-8 mb-2 md:mb-4 flex flex-col gap-6">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4">
-          <div className="flex items-center gap-3">
-            <p className="text-base text-zinc-600 dark:text-zinc-400 group relative cursor-help">
+        <div className="flex flex-col md:flex-row items-center md:items-start md:justify-center gap-4 w-full">
+          <div className="flex items-center gap-3 w-[220px]">
+            <p className="text-base text-zinc-600 dark:text-zinc-400 group relative cursor-help whitespace-nowrap w-[100px] text-right">
               Particles:
               <span className="invisible group-hover:visible absolute left-0 bottom-full mb-2 w-48 p-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg z-10">
                 Number of particles to draw. More particles create denser patterns but may affect performance.
@@ -240,8 +240,8 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
               title="Enter a number between 1 and 50000"
             />
           </div>
-          <div className="flex items-center gap-3">
-            <p className="text-base text-zinc-600 dark:text-zinc-400 group relative cursor-help">
+          <div className="flex items-center gap-3 w-[220px]">
+            <p className="text-base text-zinc-600 dark:text-zinc-400 group relative cursor-help whitespace-nowrap w-[100px] text-right">
               Opacity:
               <span className="invisible group-hover:visible absolute left-0 bottom-full mb-2 w-48 p-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg z-10">
                 Controls how transparent the lines are. Lower values create more subtle, layered effects.
@@ -261,8 +261,8 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
               title="Enter a number between 1 and 255"
             />
           </div>
-          <div className="flex items-center gap-3">
-            <p className="text-base text-zinc-600 dark:text-zinc-400 group relative cursor-help">
+          <div className="flex items-center gap-3 w-[220px]">
+            <p className="text-base text-zinc-600 dark:text-zinc-400 group relative cursor-help whitespace-nowrap w-[100px] text-right">
               Weight:
               <span className="invisible group-hover:visible absolute left-0 bottom-full mb-2 w-48 p-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg z-10">
                 Controls the thickness of the lines. Lower values create finer, more delicate patterns.
@@ -284,17 +284,16 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
             />
           </div>
         </div>
-        
-        <div className="flex justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-3">
           <button
             onClick={resetSketch}
-            className="min-w-[120px] px-6 py-2.5 bg-gradient-to-r from-rose-400 to-rose-500 text-white rounded-lg hover:from-rose-500 hover:to-rose-600 transition-all duration-200 shadow-md hover:shadow-lg active:shadow-sm text-sm font-medium"
+            className="min-w-[100px] md:min-w-[120px] px-4 md:px-6 py-2.5 bg-gradient-to-r from-rose-400 to-rose-500 text-white rounded-lg hover:from-rose-500 hover:to-rose-600 transition-all duration-200 shadow-md hover:shadow-lg active:shadow-sm text-sm font-medium"
           >
             Reset
           </button>
           <button
             onClick={handlePauseResume}
-            className={`min-w-[120px] px-6 py-2.5 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-lg active:shadow-sm text-sm font-medium ${
+            className={`min-w-[100px] md:min-w-[120px] px-4 md:px-6 py-2.5 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-lg active:shadow-sm text-sm font-medium ${
               isAnimating
                 ? 'bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600'
                 : 'bg-gradient-to-r from-emerald-400 to-emerald-500 hover:from-emerald-500 hover:to-emerald-600'
@@ -304,7 +303,7 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
           </button>
           <button
             onClick={downloadImage}
-            className="min-w-[120px] px-6 py-2.5 bg-gradient-to-r from-indigo-400 to-indigo-500 text-white rounded-lg hover:from-indigo-500 hover:to-indigo-600 transition-all duration-200 shadow-md hover:shadow-lg active:shadow-sm text-sm font-medium"
+            className="min-w-[100px] md:min-w-[120px] px-4 md:px-6 py-2.5 bg-gradient-to-r from-indigo-400 to-indigo-500 text-white rounded-lg hover:from-indigo-500 hover:to-indigo-600 transition-all duration-200 shadow-md hover:shadow-lg active:shadow-sm text-sm font-medium"
           >
             Save
           </button>
