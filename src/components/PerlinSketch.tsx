@@ -29,6 +29,26 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate }: PerlinSketchProps) => 
     });
   };
 
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (!sketchRef.current || !p5Instance.current) return;
+      
+      const container = sketchRef.current.parentElement;
+      if (!container) return;
+
+      const width = Math.min(container.clientWidth - 32, 800);
+      const height = width;
+
+      console.log('Resizing canvas to:', width, height);
+      p5Instance.current.resizeCanvas(width, height);
+      p5Instance.current.background(255);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   useEffect(() => {
     if (shouldRegenerate && p5Instance.current) {
       console.log('Regenerating sketch');
@@ -128,8 +148,8 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate }: PerlinSketchProps) => 
 
   return (
     <div className="w-full">
-      <div ref={sketchRef} className="flex justify-center"></div>
-      <div className="mt-8 mb-4 flex gap-4 justify-center">
+      <div ref={sketchRef} className="flex justify-center w-full max-w-full overflow-hidden"></div>
+      <div className="mt-4 md:mt-8 mb-2 md:mb-4 flex flex-col md:flex-row gap-3 md:gap-4 justify-center items-center">
         <button
           onClick={() => {
             console.log('Generate button clicked');
@@ -149,13 +169,13 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate }: PerlinSketchProps) => 
               setIsAnimating(true);
             }
           }}
-          className="w-28 px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors text-lg font-medium"
+          className="w-full md:w-28 px-4 md:px-6 py-2 md:py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors text-base md:text-lg font-medium"
         >
           Reset
         </button>
         <button
           onClick={handlePauseResume}
-          className={`w-28 px-6 py-3 text-white rounded-full transition-colors text-lg font-medium ${
+          className={`w-full md:w-28 px-4 md:px-6 py-2 md:py-3 text-white rounded-full transition-colors text-base md:text-lg font-medium ${
             isAnimating
               ? 'bg-yellow-500 hover:bg-yellow-600'
               : 'bg-green-500 hover:bg-green-600'
