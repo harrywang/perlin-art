@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import p5 from 'p5';
+import 'p5.js-svg';
 
 class Particle {
   x: number;
@@ -131,6 +132,13 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
       return particle;
     });
     console.log(`Created ${count} particles with new random positions`);
+  };
+
+  // Download canvas as PNG
+  const downloadImage = () => {
+    if (!p5Instance.current) return;
+    const p = p5Instance.current;
+    p.save('perlin-noise-art.png');
   };
 
   // Handle window resize
@@ -277,22 +285,28 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
           </div>
         </div>
         
-        <div className="flex justify-center gap-3 md:gap-4">
+        <div className="flex justify-center gap-4">
           <button
             onClick={resetSketch}
-            className="w-28 px-4 md:px-6 py-2 md:py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors text-base md:text-lg font-medium"
+            className="min-w-[120px] px-6 py-2.5 bg-gradient-to-r from-rose-400 to-rose-500 text-white rounded-lg hover:from-rose-500 hover:to-rose-600 transition-all duration-200 shadow-md hover:shadow-lg active:shadow-sm text-sm font-medium"
           >
             Reset
           </button>
           <button
             onClick={handlePauseResume}
-            className={`w-28 px-4 md:px-6 py-2 md:py-3 text-white rounded-full transition-colors text-base md:text-lg font-medium ${
+            className={`min-w-[120px] px-6 py-2.5 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-lg active:shadow-sm text-sm font-medium ${
               isAnimating
-                ? 'bg-yellow-500 hover:bg-yellow-600'
-                : 'bg-green-500 hover:bg-green-600'
+                ? 'bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600'
+                : 'bg-gradient-to-r from-emerald-400 to-emerald-500 hover:from-emerald-500 hover:to-emerald-600'
             }`}
           >
             {isAnimating ? 'Pause' : 'Resume'}
+          </button>
+          <button
+            onClick={downloadImage}
+            className="min-w-[120px] px-6 py-2.5 bg-gradient-to-r from-indigo-400 to-indigo-500 text-white rounded-lg hover:from-indigo-500 hover:to-indigo-600 transition-all duration-200 shadow-md hover:shadow-lg active:shadow-sm text-sm font-medium"
+          >
+            Save
           </button>
         </div>
       </div>
