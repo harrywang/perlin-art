@@ -218,13 +218,10 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
     <div className="w-full">
       <div ref={sketchRef} className="flex justify-center w-full max-w-full overflow-hidden"></div>
       <div className="mt-4 md:mt-8 mb-2 md:mb-4 flex flex-col gap-6">
-        <div className="flex flex-col md:flex-row items-center md:items-start md:justify-center gap-4 w-full">
-          <div className="flex items-center gap-3 w-[220px]">
-            <p className="text-base text-zinc-600 dark:text-zinc-400 group relative cursor-help whitespace-nowrap w-[100px] text-right">
+        <div className="flex flex-col md:flex-row items-center md:items-start md:justify-center gap-4 w-full max-w-[800px] mx-auto">
+          <div className="flex items-center gap-3 w-[220px] relative group">
+            <p className="text-base text-zinc-600 dark:text-zinc-400 cursor-help whitespace-nowrap w-[100px] text-right">
               Particles:
-              <span className="invisible group-hover:visible absolute left-0 bottom-full mb-2 w-48 p-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg z-10">
-                Number of particles to draw. More particles create denser patterns but may affect performance.
-              </span>
             </p>
             <input
               id="particleCount"
@@ -239,13 +236,13 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
               className="w-24 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent outline-none transition-shadow duration-200 text-gray-900 dark:text-gray-100"
               title="Enter a number between 1 and 50000"
             />
+            <div className="invisible group-hover:visible absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 p-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg z-10">
+              Number of particles to draw. More particles create denser patterns but may affect performance.
+            </div>
           </div>
-          <div className="flex items-center gap-3 w-[220px]">
-            <p className="text-base text-zinc-600 dark:text-zinc-400 group relative cursor-help whitespace-nowrap w-[100px] text-right">
+          <div className="flex items-center gap-3 w-[220px] relative group">
+            <p className="text-base text-zinc-600 dark:text-zinc-400 cursor-help whitespace-nowrap w-[100px] text-right">
               Opacity:
-              <span className="invisible group-hover:visible absolute left-0 bottom-full mb-2 w-48 p-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg z-10">
-                Controls how transparent the lines are. Lower values create more subtle, layered effects.
-              </span>
             </p>
             <input
               id="opacity"
@@ -260,13 +257,13 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
               className="w-24 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent outline-none transition-shadow duration-200 text-gray-900 dark:text-gray-100"
               title="Enter a number between 1 and 255"
             />
+            <div className="invisible group-hover:visible absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 p-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg z-10">
+              Controls how transparent the lines are. Lower values create more subtle, layered effects.
+            </div>
           </div>
-          <div className="flex items-center gap-3 w-[220px]">
-            <p className="text-base text-zinc-600 dark:text-zinc-400 group relative cursor-help whitespace-nowrap w-[100px] text-right">
+          <div className="flex items-center gap-3 w-[220px] relative group">
+            <p className="text-base text-zinc-600 dark:text-zinc-400 cursor-help whitespace-nowrap w-[100px] text-right">
               Weight:
-              <span className="invisible group-hover:visible absolute left-0 bottom-full mb-2 w-48 p-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg z-10">
-                Controls the thickness of the lines. Lower values create finer, more delicate patterns.
-              </span>
             </p>
             <input
               id="strokeWeight"
@@ -282,6 +279,9 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
               className="w-24 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent outline-none transition-shadow duration-200 text-gray-900 dark:text-gray-100"
               title="Enter a number between 0.1 and 5"
             />
+            <div className="invisible group-hover:visible absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 p-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg z-10">
+              Controls the thickness of the lines. Lower values create finer, more delicate patterns.
+            </div>
           </div>
         </div>
         <div className="flex flex-wrap justify-center gap-3">
