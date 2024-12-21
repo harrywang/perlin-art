@@ -259,6 +259,9 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
             <p className="text-base text-zinc-600 dark:text-zinc-400 cursor-help whitespace-nowrap w-[100px] text-right">
               Particles:
             </p>
+            <div className="invisible group-hover:visible absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg z-10">
+              Number of particles to draw. More particles create denser patterns but may affect performance.
+            </div>
             <input
               id="particleCount"
               type="number"
@@ -287,15 +290,15 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
               className="w-24 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent outline-none transition-shadow duration-200 text-gray-900 dark:text-gray-100"
               title="Enter a number between 1 and 50000"
             />
-            <div className="invisible group-hover:visible absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 p-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg z-10">
-              Number of particles to draw. More particles create denser patterns but may affect performance.
-            </div>
           </div>
           {/* Opacity input */}
           <div className="flex items-center gap-3 w-[220px] relative group">
             <p className="text-base text-zinc-600 dark:text-zinc-400 cursor-help whitespace-nowrap w-[100px] text-right">
               Opacity:
             </p>
+            <div className="invisible group-hover:visible absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg z-10">
+              Controls how transparent the lines are. Lower values create more subtle, layered effects.
+            </div>
             <input
               id="opacity"
               type="number"
@@ -324,15 +327,15 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
               className="w-24 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent outline-none transition-shadow duration-200 text-gray-900 dark:text-gray-100"
               title="Enter a number between 1 and 255"
             />
-            <div className="invisible group-hover:visible absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 p-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg z-10">
-              Controls how transparent the lines are. Lower values create more subtle, layered effects.
-            </div>
           </div>
           {/* Stroke weight input */}
           <div className="flex items-center gap-3 w-[220px] relative group">
             <p className="text-base text-zinc-600 dark:text-zinc-400 cursor-help whitespace-nowrap w-[100px] text-right">
               Weight:
             </p>
+            <div className="invisible group-hover:visible absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg z-10">
+              Controls the thickness of the lines. Lower values create finer, more delicate patterns.
+            </div>
             <input
               id="strokeWeight"
               type="number"
@@ -362,9 +365,6 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
               className="w-24 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent outline-none transition-shadow duration-200 text-gray-900 dark:text-gray-100"
               title="Enter a number between 0.1 and 10"
             />
-            <div className="invisible group-hover:visible absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 p-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg z-10">
-              Controls the thickness of the lines. Lower values create finer, more delicate patterns.
-            </div>
           </div>
         </div>
         {/* Alert Modal */}
