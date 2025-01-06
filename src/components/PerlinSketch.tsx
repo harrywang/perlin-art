@@ -168,6 +168,46 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
     p.save('perlin-noise-art.png');
   };
 
+  // Save canvas as SVG
+  const downloadSVG = () => {
+    if (!p5Instance.current || !sketchRef.current) return;
+    
+    const p = p5Instance.current;
+    const width = p.width;
+    const height = p.height;
+    
+    // Create SVG content
+    let svgContent = `<?xml version="1.0" encoding="utf-8"?>
+<svg width="${width}px" height="${height}px" viewBox="0 0 ${width} ${height}" 
+     xmlns="http://www.w3.org/2000/svg">
+<rect width="100%" height="100%" fill="white"/>
+`;
+    
+    // Add each particle's line as a path
+    particles.current.forEach(particle => {
+      const opacity = Math.round((particle.opacity / 255) * 100) / 100;
+      svgContent += `<path d="M ${particle.prev_x} ${particle.prev_y} L ${particle.x} ${particle.y}" 
+        stroke="rgba(0,0,0,${opacity})" 
+        stroke-width="${particle.weight}" 
+        fill="none"/>
+`;
+    });
+    
+    // Close SVG tag
+    svgContent += '</svg>';
+    
+    // Create and trigger download
+    const blob = new Blob([svgContent], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'perlin-noise-art.svg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   // Handle window resize events
   useEffect(() => {
     const handleResize = () => {
@@ -175,7 +215,7 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
       
       const p = p5Instance.current;
       const container = sketchRef.current.parentElement;
-      const width = Math.min(container.clientWidth - 32, 800);
+      const width = container ? Math.min(container.clientWidth - 32, 800) : 800;
       const height = width;
       
       p.resizeCanvas(width, height);
@@ -442,7 +482,13 @@ const PerlinSketch = ({ onRegenerate, shouldRegenerate, numParticles = 10000 }: 
             onClick={downloadImage}
             className="min-w-[100px] md:min-w-[120px] px-4 md:px-6 py-2.5 bg-gradient-to-r from-indigo-400 to-indigo-500 text-white rounded-lg hover:from-indigo-500 hover:to-indigo-600 transition-all duration-200 shadow-md hover:shadow-lg active:shadow-sm text-sm font-medium"
           >
-            Save
+            Save PNG
+          </button>
+          <button
+            onClick={downloadSVG}
+            className="min-w-[100px] md:min-w-[120px] px-4 md:px-6 py-2.5 bg-gradient-to-r from-purple-400 to-purple-500 text-white rounded-lg hover:from-purple-500 hover:to-purple-600 transition-all duration-200 shadow-md hover:shadow-lg active:shadow-sm text-sm font-medium"
+          >
+            Save SVG
           </button>
         </div>
       </div>

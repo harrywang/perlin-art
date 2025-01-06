@@ -16,6 +16,25 @@ npm run dev
 
 Then, open [http://localhost:3000](http://localhost:3000) with your browser to see the app.
 
+## Testing
+
+The project uses Playwright for end-to-end testing. To run the tests:
+
+```bash
+# Install Playwright browsers (first time only)
+npx playwright install
+
+# Run tests in headless mode
+npm test
+
+# Run tests with UI mode
+npm run test:ui
+```
+
+The tests verify:
+- The canvas element is properly rendered
+- The canvas responds to viewport size changes
+
 ## Stack
 - Next.js 14
 - React 18
